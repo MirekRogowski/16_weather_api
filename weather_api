@@ -124,7 +124,6 @@ class WeatherForecast:
         print(self.date)
 
 
-
 if len(sys.argv) < 2:
     print("Brak api")
     exit()
@@ -136,3 +135,10 @@ elif len(sys.argv) == 3:
     wf.date = sys.argv[2]
     print(f"Dla daty {wf.date} brak danych ") if wf.days_between(sys.argv[2]) >= int(FORECAST_DAYS) \
         else print(wf.check_day())
+else:
+    wf.date = str(datetime.now().date())
+    for row in wf.items():
+        print(row)
+    print("*"*50)
+    for i in wf:
+        print(i)
