@@ -46,18 +46,17 @@ class WeatherForecast:
             # print("test warunek 3")
             self.read_api()
 
-    def read_from_csv_file(self):
-        with open("data.csv", newline='') as f:
-            reader = csv.reader(f)
-            for i in reader:
-                self.weather_date.append([i[0], i[1]])
-        # self.print_data()
-
     def read_from_json_file(self):
         # print("funkcja read_from_json_file ")
         with open("out.json") as f:
             self.cache = json.load(f)
         # self.print_data()
+
+    def read_from_csv_file(self):
+        with open("data.csv", newline='') as f:
+            reader = csv.reader(f)
+            for i in reader:
+                self.weather_date.append([i[0], i[1]])
 
     def read_api(self):
         url = "https://community-open-weather-map.p.rapidapi.com/forecast/daily"
@@ -73,7 +72,6 @@ class WeatherForecast:
             json.dump(out_url, json_file)
         self.read_from_json_file()
         self.write_data()
-        # self.print_data()
 
     def read_from_weather_date(self):
         for i in self.weather_date:
@@ -124,21 +122,26 @@ class WeatherForecast:
         print(self.date)
 
 
-if len(sys.argv) < 2:
-    print("Brak api")
-    exit()
-wf = WeatherForecast(sys.argv[1])
-if len(sys.argv) == 2:
-    wf.date = str(datetime.now().date() + timedelta(days=1))
-    print(wf.check_day())
-elif len(sys.argv) == 3:
-    wf.date = sys.argv[2]
-    print(f"Dla daty {wf.date} brak danych ") if wf.days_between(sys.argv[2]) >= int(FORECAST_DAYS) \
-        else print(wf.check_day())
-else:
-    wf.date = str(datetime.now().date())
-    for row in wf.items():
-        print(row)
-    print("*"*50)
-    for i in wf:
-        print(i)
+def main():
+    if len(sys.argv) < 2:
+        print("Brak api")
+        exit()
+    wf = WeatherForecast(sys.argv[1])
+    if len(sys.argv) == 2:
+        wf.date = str(datetime.now().date() + timedelta(days=1))
+        print(wf.check_day())
+    elif len(sys.argv) == 3:
+        wf.date = sys.argv[2]
+        print(f"Dla daty {wf.date} brak danych ") if wf.days_between(sys.argv[2]) >= int(FORECAST_DAYS) \
+            else print(wf.check_day())
+    else:
+        wf.date = str(datetime.now().date())
+        for row in wf.items():
+            print(row)
+        print("*"*50)
+        for i in wf:
+            print(i)
+
+
+main()
+
