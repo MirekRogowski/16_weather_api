@@ -17,9 +17,6 @@ class WeatherForecast:
         self.date = ""
         self.init_forecast()
 
-    def __getitem__(self, item):
-        return
-
     def __iter__(self):
         for i in self.weather_date:
             yield i[0]
@@ -121,11 +118,11 @@ def main():
         print(f"Dla daty {wf.date} brak danych ") if wf.days_between(sys.argv[2]) >= int(FORECAST_DAYS) \
             else print(wf.check_day())
     else:
-        wf.date = str(datetime.now().date())
-        print("*"*50)
+        # wf.date = str(datetime.now().date())
+        print("\nTupla w formacie (data, pogoda): ")
         for row in wf.items():
             print(row)
-        print("*"*50)
+        print("\nDaty dla ktorych jest znana pogoda: ")
         for i in wf:
             print(i)
 
