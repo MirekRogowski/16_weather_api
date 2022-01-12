@@ -1,0 +1,12 @@
+certifi==2021.10.8
+charset-normalizer==2.0.9
+DateTime==4.3
+idna==3.3
+pygame==2.1.2
+pytz==2021.3
+requests==2.26.0
+rethinkdb==2.4.8
+six==1.16.0
+thinker==1.1.1
+urllib3==1.26.7
+zope.interface==5.4.0
