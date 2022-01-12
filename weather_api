@@ -84,6 +84,11 @@ class WeatherForecast:
             self.read_api()
             return f"Dla daty {self.date} {self.check_forecast()}"
         return self.check_forecast()
+    
+    def days_between(self, date):
+        d1 = datetime.now().date()
+        d2 = datetime.strptime(date, "%Y-%m-%d").date()
+        return (d2 - d1).days
 
     def print_data(self):
         print("testowanie: "+"*" * 50)
@@ -101,3 +106,7 @@ wf = WeatherForecast(sys.argv[1])
 if len(sys.argv) == 2:
     wf.date = str(datetime.now().date() + timedelta(days=1))
     print(wf.check_day())
+elif len(sys.argv) == 3:
+    wf.date = sys.argv[2]
+    print(f"Dla daty {wf.date} brak danych ") if wf.days_between(sys.argv[2]) >= int(FORECAST_DAYS) \
+        else print(wf.check_day())
