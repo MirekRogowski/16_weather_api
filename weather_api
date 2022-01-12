@@ -24,3 +24,11 @@ class WeatherForecast:
         # print(self.weather_date)
         for i in self.weather_date:
             yield i[0]
+
+    def items(self):
+        for i in self.weather_date:
+            # yield i[0], i[1]
+            if i[1] in ['Snow', 'Rain']:
+                yield i[0], "będzie padać"
+            else:
+                yield i[0], "nie będzie padać"
