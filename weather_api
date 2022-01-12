@@ -32,3 +32,31 @@ class WeatherForecast:
                 yield i[0], "będzie padać"
             else:
                 yield i[0], "nie będzie padać"
+
+    def init_forecast(self):
+        if not self.weather_date:
+            # print("test warunek 3")
+            self.read_api()
+
+    def read_api(self):
+        url = "https://community-open-weather-map.p.rapidapi.com/forecast/daily"
+        querystring = {"q": "Konin", "lat": "35", "lon": "139", "cnt": FORECAST_DAYS, "units": "metric or imperial"}
+        headers = {
+            'x-rapidapi-host': "community-open-weather-map.p.rapidapi.com",
+            'x-rapidapi-key': self.api_key
+        }
+        print("______ api update ______")
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        out_url = response.json()
+        with open("out.json", 'w') as json_file:
+            json.dump(out_url, json_file)
+        self.read_from_json_file()
+        self.write_data()
+
+
+
+
+if len(sys.argv) < 2:
+    print("Brak api")
+    exit()
+wf = WeatherForecast(sys.argv[1])
