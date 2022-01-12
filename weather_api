@@ -72,6 +72,19 @@ class WeatherForecast:
         self.write_data()
         # self.print_data()
 
+    def check_forecast(self):
+        for i in self.weather_date:
+            if i[0] == self.date:
+                if i[1] in ['Snow', 'Rain']:
+                    return f"W dniu {self.date} - Będzie padać"
+                return f"W dniu {self.date} - Nie będzie padać"
+
+    def check_day(self):
+        if not self.check_forecast():
+            self.read_api()
+            return f"Dla daty {self.date} {self.check_forecast()}"
+        return self.check_forecast()
+
     def print_data(self):
         print("testowanie: "+"*" * 50)
         print(self.api_key)
@@ -85,3 +98,6 @@ if len(sys.argv) < 2:
     print("Brak api")
     exit()
 wf = WeatherForecast(sys.argv[1])
+if len(sys.argv) == 2:
+    wf.date = str(datetime.now().date() + timedelta(days=1))
+    print(wf.check_day())
