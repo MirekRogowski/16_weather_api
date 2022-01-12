@@ -34,14 +34,17 @@ class WeatherForecast:
                 yield i[0], "nie będzie padać"
 
     def init_forecast(self):
-        if not self.weather_date:
-            # print("test warunek 3")
-            self.read_api()
+        if os.path.exists("data.csv"):
+            # print("test warunek 1")
+            self.read_from_csv_file()
         if os.path.exists("out.json"):
             # print("test warunek 2")
             self.read_from_json_file()
             self.write_data()
             # self.print_data()
+        if not self.weather_date:
+            # print("test warunek 3")
+            self.read_api()
 
     def read_from_csv_file(self):
         with open("data.csv", newline='') as f:
