@@ -43,6 +43,13 @@ class WeatherForecast:
             self.write_data()
             # self.print_data()
 
+    def read_from_csv_file(self):
+        with open("data.csv", newline='') as f:
+            reader = csv.reader(f)
+            for i in reader:
+                self.weather_date.append([i[0], i[1]])
+        # self.print_data()
+
     def read_from_json_file(self):
         # print("funkcja read_from_json_file ")
         with open("out.json") as f:
@@ -63,8 +70,14 @@ class WeatherForecast:
             json.dump(out_url, json_file)
         self.read_from_json_file()
         self.write_data()
+        # self.print_data()
 
-
+    def print_data(self):
+        print("testowanie: "+"*" * 50)
+        print(self.api_key)
+        # print(self.cache)
+        print(self.weather_date)
+        print(self.date)
 
 
 
