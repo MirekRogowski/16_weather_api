@@ -37,6 +37,17 @@ class WeatherForecast:
         if not self.weather_date:
             # print("test warunek 3")
             self.read_api()
+        if os.path.exists("out.json"):
+            # print("test warunek 2")
+            self.read_from_json_file()
+            self.write_data()
+            # self.print_data()
+
+    def read_from_json_file(self):
+        # print("funkcja read_from_json_file ")
+        with open("out.json") as f:
+            self.cache = json.load(f)
+        # self.print_data()
 
     def read_api(self):
         url = "https://community-open-weather-map.p.rapidapi.com/forecast/daily"
@@ -52,6 +63,7 @@ class WeatherForecast:
             json.dump(out_url, json_file)
         self.read_from_json_file()
         self.write_data()
+
 
 
 
