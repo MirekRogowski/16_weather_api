@@ -23,7 +23,7 @@ class WeatherForecast:
 
     def __getitem__(self, item):
         self.date = item
-        if self.days_between(item) >= int(FORECAST_DAYS):
+        if self.days_between(item) >= int(FORECAST_DAYS) :
             return f"Dla daty {self.date} brak danych "
         return self.check_day()
 
